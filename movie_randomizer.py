@@ -1,6 +1,7 @@
 from pathlib import Path
 import random
 import logging
+import shutil
 
 logging.basicConfig()
 
@@ -10,8 +11,7 @@ def randomize_boot_movie():
     if movies_path.is_dir():
         boot_movies = sorted(list(movies_path.glob('*deck_startup.webm')) + list(movies_path.glob('*deck_startup.WEBM')))
         if boot_movies:
-            random_movie = random.randint(0, len(boot_movies) - 1)
-            new_boot_movie = boot_movies[random_movie]
+            new_boot_movie = boot_movies[random.randint(0, len(boot_movies) - 1)]
             if startup_movie_old.exists():
                 # Rename current movie
                 counter=1
@@ -23,7 +23,8 @@ def randomize_boot_movie():
                     startup_movie.rename(startup_movie_old)
             else:
                 # Rename new movie to deck_startup.webm
-                pass
+                logging.info(f'Using {new_boot_movie} as new startup movie')
+                shutil.copyfile(str(new_boot_movie), str(startup_movie_old))
         else:
             logging.warning(f'Could not find movies in {movies_path}')
     else:
