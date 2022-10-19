@@ -34,7 +34,6 @@ class MovieRandomizer:
                 self.rename_boot_movie(
                     self.startup_movie_path,
                     startup_movie_new,
-                    self.startup_movie_original_name,
                 )
             else:
                 logging.warning(f"Could not find movies in {self.movies_path}")
