@@ -46,6 +46,17 @@ class MovieRandomizer:
             self.startup_movie_path.hardlink_to(startup_movie_new)
 
     def randomize_boot_movie(self) -> int:
+        """Randomly selects a new boot movie from the available movies in the
+        directory that end in deck_startup.webm
+
+        Raises:
+            FileNotFoundError: If the movies directory does not exist.
+            FileNotFoundError: If no movies are found in the movies directory.
+
+        Returns:
+            int: 1 If it succesfully changes the startup movie, -1 if it doesn't.
+        """
+        succesful_run = -1
         if self.movies_path.is_dir():
             boot_movies = sorted(
                 list(self.movies_path.glob("*deck_startup.webm"))
@@ -58,7 +69,7 @@ class MovieRandomizer:
                     self.startup_movie_path,
                     startup_movie_new,
                 )
-                return 1
+                succesful_run = 1
             else:
                 logging.warning(f"Could not find movies in {self.movies_path}")
                 raise FileNotFoundError(f"No movies were found in {self.movies_path}")
@@ -68,6 +79,7 @@ class MovieRandomizer:
                 f"Could not find the {self.movies_path} directory in {self.movies_path.resolve().parents[2]}"
             )
             raise FileNotFoundError(f"No directory exists in {self.movies_path}")
+        return succesful_run
 
 
 if __name__ == "__main__":
