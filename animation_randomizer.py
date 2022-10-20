@@ -117,5 +117,5 @@ class AnimationRandomizer:
 
 
 if __name__ == "__main__":
-    animation_randomizer = AnimationRandomizer(Path("uioverrides") / "animations")
+    animation_randomizer = AnimationRandomizer(Path("movies"))
     animation_randomizer.randomize_boot_animation()
