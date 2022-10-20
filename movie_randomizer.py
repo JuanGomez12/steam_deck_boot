@@ -1,6 +1,7 @@
 import logging
 import random
 import shutil
+import sys
 from pathlib import Path
 
 logging.basicConfig()
@@ -17,7 +18,9 @@ class MovieRandomizer:
             logging.error(
                 f"Could not find the {movies_path} directory in {movies_path.resolve().parents[2]}"
             )
-            raise FileNotFoundError(f"{movies_path.resolve()} is not a directory/does not exist")
+            raise FileNotFoundError(
+                f"{movies_path.resolve()} is not a directory/does not exist"
+            )
         self.movies_path = movies_path
         self.startup_movie_path = movies_path / "deck_startup.webm"
         self.startup_movie_exists = self.startup_movie_path.is_file()
@@ -26,8 +29,18 @@ class MovieRandomizer:
         return f"Movie Randomizer with path to: {self.movies_path}"
 
     def rename_boot_movie(self, startup_movie_new: Path, copy_file: bool = False):
+        """Copies or creates a hardlink for deck_startup.webm pointing to
+        startup_movie_new, depending of the value of copy_file.
+        If the Python version is lower than 3.10, defaults to copying the file.
+
+        Args:
+            startup_movie_new (Path): Path to the startup movie to copy/hardlink
+                to.
+            copy_file (bool, optional): If True, copies the file instead of
+                creating a hard link. Defaults to False.
+        """
         logging.info(f"Using {startup_movie_new} as new startup movie")
-        if copy_file:
+        if copy_file or sys.version_info < (3, 10):
             shutil.copyfile(str(startup_movie_new), str(self.startup_movie_path))
         else:
             self.startup_movie_path.hardlink_to(startup_movie_new)
