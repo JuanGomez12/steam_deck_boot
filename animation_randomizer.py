@@ -69,13 +69,13 @@ class AnimationRandomizer:
                 self.startup_animation_path.unlink()
             self.startup_animation_path.hardlink_to(startup_animation_new)
 
-    def randomize_boot_animation(self, random_seed:Optional[int]) -> Optional[Path]:      
+    def randomize_boot_animation(self, random_seed:Optional[int]=None) -> Optional[Path]:      
         """Pseudo randomly selects a new boot animation from the available
         animations in the directory that end in deck_startup.webm
 
         Args:
-            random_seed (Optional[int]): Random seed to use for the random
-            selection. Useful for reproducibility.
+            random_seed (int, optional): Random seed to use for the random
+            selection. Useful for reproducibility. Defaults to None.
 
         Raises:
             FileNotFoundError: If the animations directory does not exist.
@@ -91,7 +91,8 @@ class AnimationRandomizer:
                 + list(self.animations_path.glob("*startup.WEBM"))
             )
             if boot_animations:
-                random.seed(random_seed)
+                if random_seed is None:
+                    random.seed(random_seed)
                 startup_animation_new = boot_animations[
                     random.randint(0, len(boot_animations) - 1)
                 ]
