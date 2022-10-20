@@ -3,6 +3,7 @@ import random
 import shutil
 import sys
 from pathlib import Path
+from typing import Optional
 
 logging.basicConfig()
 
@@ -48,11 +49,16 @@ class AnimationRandomizer:
         If the Python version is lower than 3.10, defaults to copying the file.
 
         Args:
-            startup_animation_new (Path): Path to the startup animation to copy/hardlink
-                to.
+            startup_animation_new (Path): Path to the startup animation to
+                copy/hardlink to.
             copy_file (bool, optional): If True, copies the file instead of
                 creating a hard link. Defaults to False.
+
+        Raises:
+            FileNotFoundError: If the new startup animation does not exist.
         """
+        if not startup_animation_new.is_file():
+            raise FileNotFoundError(f'Could not find animation {startup_animation_new}')
         logging.info(f"Using {startup_animation_new} as new startup animation")
         if copy_file or sys.version_info < (3, 10):
             shutil.copyfile(
