@@ -5,7 +5,6 @@
 <!-- |             |                                                                                                                                                                                                                                |                                                                                                                                                                                                                    |
 |             |                                                                                                                                                                                                                                |                                                                                                                                                                                                                    | -->
 
-# Dev Branch
 
 # Instructions
 
