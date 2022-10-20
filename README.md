@@ -16,7 +16,7 @@ This will create the necessary directories that need to exist
 ## Copy the script to the directory
 You can either copy the animation_randomizer.py script to the ~/.steam/root/config/uioverrides directory, or open the directory and run:
 ```
-cd ~/.steam/root/config/uioverrides && git clone --no-checkout https://github.com/JuanGomez12/steam_deck_boot tmp && mv tmp/.git . && rmdir tmp && git checkout master
+cd ~/.steam/root/config/uioverrides && git clone --no-checkout https://github.com/JuanGomez12/steam_deck_boot tmp && mv tmp/.git . && rmdir tmp && git checkout main
 ```
 What this one liner does is clone this repository to a temporary directory, move it to the current directory and then remove the temporary directory (workaround as git clone can't be run in a non-empty directory)
 ## Create cron job
