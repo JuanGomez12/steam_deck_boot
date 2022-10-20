@@ -61,33 +61,38 @@ class AnimationRandomizer:
         else:
             self.startup_animation_path.hardlink_to(startup_animation_new)
 
-    def randomize_boot_animation(self) -> int:
-        """Randomly selects a new boot animation from the available animations in the
-        directory that end in deck_startup.webm
+    def randomize_boot_animation(self, random_seed:Optional[int]) -> Optional[Path]:      
+        """Pseudo randomly selects a new boot animation from the available
+        animations in the directory that end in deck_startup.webm
+
+        Args:
+            random_seed (Optional[int]): Random seed to use for the random
+            selection. Useful for reproducibility.
 
         Raises:
             FileNotFoundError: If the animations directory does not exist.
             FileNotFoundError: If no animations are found in the animations directory.
-
         Returns:
-            int: 1 If it succesfully changes the startup animation, -1 if it doesn't.
+            Path|None: Path to the animation selected, or None if the function
+                couldn't run.
         """
-        succesful_run = -1
+        animation_used_path = None
         if self.animations_path.is_dir():
             boot_animations = sorted(
-                list(self.animations_path.glob("*deck_startup.webm"))
-                + list(self.animations_path.glob("*deck_startup.WEBM"))
+                list(self.animations_path.glob("*startup.webm"))
+                + list(self.animations_path.glob("*startup.WEBM"))
             )
             if boot_animations:
+                random.seed(random_seed)
                 startup_animation_new = boot_animations[
                     random.randint(0, len(boot_animations) - 1)
                 ]
-                # Rename new animation to deck_startup.webm
-                self.rename_boot_animation(
-                    self.startup_animation_path,
-                    startup_animation_new,
+                logging.info(
+                    f"{startup_animation_new} selected as the new boot animation"
                 )
-                succesful_run = 1
+                # Rename new animation to deck_startup.webm
+                self.rename_boot_animation(startup_animation_new)
+                animation_used_path = startup_animation_new
             else:
                 logging.warning(f"Could not find animations in {self.animations_path}")
                 raise FileNotFoundError(
@@ -99,7 +104,7 @@ class AnimationRandomizer:
                 f"Could not find the {self.animations_path} directory in {self.animations_path.resolve().parents[2]}"
             )
             raise FileNotFoundError(f"No directory exists in {self.animations_path}")
-        return succesful_run
+        return animation_used_path
 
 
 if __name__ == "__main__":
