@@ -6,10 +6,6 @@ from pathlib import Path
 
 logging.basicConfig()
 
-MOVIES_PATH = Path("uioverrides") / "movies"
-STARTUP_MOVIE_PATH = MOVIES_PATH / "deck_startup.webm"
-
-
 class MovieRandomizer:
     def __init__(self, movies_path: Path) -> None:
         if not isinstance(movies_path, Path):
