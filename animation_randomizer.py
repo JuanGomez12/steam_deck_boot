@@ -59,6 +59,8 @@ class AnimationRandomizer:
                 str(startup_animation_new), str(self.startup_animation_path)
             )
         else:
+            if self.startup_animation_path.is_file():
+                self.startup_animation_path.unlink()
             self.startup_animation_path.hardlink_to(startup_animation_new)
 
     def randomize_boot_animation(self, random_seed:Optional[int]) -> Optional[Path]:      
