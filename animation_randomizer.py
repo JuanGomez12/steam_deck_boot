@@ -92,6 +92,7 @@ class AnimationRandomizer:
                 list(self.animations_path.glob("*startup.webm"))
                 + list(self.animations_path.glob("*startup.WEBM"))
             )
+            logging.debug(f'Found {len(boot_animations)} animations')
             if self.startup_animation_path in boot_animations:
                 boot_animations.remove(self.startup_animation_path)
             if boot_animations:
