@@ -118,4 +118,5 @@ class AnimationRandomizer:
 
 if __name__ == "__main__":
     animation_randomizer = AnimationRandomizer(Path("movies"))
-    animation_randomizer.randomize_boot_animation()
+    animation_used_path = animation_randomizer.randomize_boot_animation()
+    print(f'New animation set: {animation_used_path}')
