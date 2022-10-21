@@ -27,7 +27,7 @@ From a terminal open crontab using:
 ```
 crontab -e
 ```
-Select the text editor you want to use to update the file, in this Readme we'll assume we're using nano. If you need to isntall nano, just run in the terminal:
+Select the text editor you want to use to update the file, in this Readme we'll assume we're using nano. If you need to install nano, just run in the terminal:
 ```
 pacman -S nano
 ```
