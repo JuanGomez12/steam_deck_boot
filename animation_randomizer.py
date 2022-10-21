@@ -58,7 +58,7 @@ class AnimationRandomizer:
             FileNotFoundError: If the new startup animation does not exist.
         """
         if not startup_animation_new.is_file():
-            raise FileNotFoundError(f'Could not find animation {startup_animation_new}')
+            raise FileNotFoundError(f"Could not find animation {startup_animation_new}")
         logging.info(f"Using {startup_animation_new} as new startup animation")
         if copy_file or sys.version_info < (3, 10):
             shutil.copyfile(
@@ -69,7 +69,9 @@ class AnimationRandomizer:
                 self.startup_animation_path.unlink()
             self.startup_animation_path.hardlink_to(startup_animation_new)
 
-    def randomize_boot_animation(self, random_seed:Optional[int]=None) -> Optional[Path]:      
+    def randomize_boot_animation(
+        self, random_seed: Optional[int] = None
+    ) -> Optional[Path]:
         """Pseudo randomly selects a new boot animation from the available
         animations in the directory that end in deck_startup.webm
 
@@ -121,4 +123,4 @@ class AnimationRandomizer:
 if __name__ == "__main__":
     animation_randomizer = AnimationRandomizer(Path("movies"))
     animation_used_path = animation_randomizer.randomize_boot_animation()
-    print(f'New animation set: {animation_used_path}')
+    print(f"New animation set: {animation_used_path}")
