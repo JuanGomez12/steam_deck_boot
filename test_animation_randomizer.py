@@ -49,3 +49,16 @@ def test_correct_randomization_of_animations(tmp_path: Path):
     animation = animation_randomizer.randomize_boot_animation(random_seed=42)
     assert animation.is_file()
     assert animation_randomizer.startup_animation_path.is_file()
+
+
+def test_only_one_animation_available(tmp_path: Path):
+    [
+        (tmp_path / f"new_startup_animation_{i}_deck_startup.webm").touch()
+        for i in range(1)
+    ]
+    animation_randomizer = AnimationRandomizer(tmp_path)
+    animation_1 = animation_randomizer.randomize_boot_animation(random_seed=42)
+    animation_2 = animation_randomizer.randomize_boot_animation(random_seed=42)
+    assert animation_2.is_file()
+    assert animation_1 == animation_2
+    assert animation_randomizer.startup_animation_path.is_file()
