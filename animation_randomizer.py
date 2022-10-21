@@ -91,7 +91,7 @@ class AnimationRandomizer:
                 + list(self.animations_path.glob("*startup.WEBM"))
             )
             if boot_animations:
-                if random_seed is None:
+                if random_seed is not None:
                     random.seed(random_seed)
                 startup_animation_new = boot_animations[
                     random.randint(0, len(boot_animations) - 1)
