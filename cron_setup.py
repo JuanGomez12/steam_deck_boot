@@ -29,7 +29,7 @@ class CronJobManager:
         else:
             logging.info(f"Cron job: '{self.cron_job}' already exists")
             status = 0
-        return cron_job_creation.returncode
+        return status
 
     def check_cron_job_status(self) -> bool:
         filter = "".join([chr(i) for i in range(1, 32)])
@@ -46,6 +46,8 @@ class CronJobManager:
 
 if __name__ == "__main__":
     user = getpass.getuser()
-    cron_job = "@reboot python ~/.steam/root/config/uioverrides/animation_randomizer.py"
+    cron_job = (
+        "@reboot python3 ~/.steam/root/config/uioverrides/animation_randomizer.py"
+    )
     cron_job_manager = CronJobManager(user, cron_job)
     cron_job_manager.create_cron_job()
