@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Create Steam movies/animations folder
+mkdir -p ~/.steam/root/config/uioverrides/movies/
+
+# Delete steam_deck_boot folder if it exists in the tmp directory
+rm -rf /tmp/steam_deck_boot
+
+# Clone the repo
+git clone https://github.com/JuanGomez12/steam_deck_boot /tmp/steam_deck_boot
+
+# Run the cron job setup
+python3 /tmp/steam_deck_boot/cron_setup.py
+
+# Copy the randomizer to the folder
+cp /tmp/steam_deck_boot/animation_randomizer.py ~/.steam/root/config/uioverrides/
+
+# Test to see if the script runs correctly
+python3 ~/.steam/root/config/uioverrides/animation_randomizer.py
