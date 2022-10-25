@@ -58,7 +58,7 @@ git clone https://github.com/JuanGomez12/steam_deck_boot /tmp/steam_deck_boot
 # Run the cron job setup
 python3 /tmp/steam_deck_boot/cron_setup.py
 
-# Copy the randomizer to the folder
+# Copy the randomizer to the uioverrides directory
 cp /tmp/steam_deck_boot/animation_randomizer.py ~/.steam/root/config/uioverrides/
 
 # Test to see if the script runs correctly
