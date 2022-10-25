@@ -10,6 +10,7 @@ class CronJobManager:
 
     def create_cron_job(self) -> int:
         if not self.check_cron_job_status():
+            logging.info(f"Cron job: '{self.cron_job}' does not exist, creating")
             filter = "".join([chr(i) for i in range(1, 32)])
             translation_table = str.maketrans("", "", filter)
             cron_job_creation = subprocess.run(
@@ -41,10 +42,12 @@ class CronJobManager:
         cron_string = cron_subprocess.stdout.decode("utf-8")
         cron_string = cron_string.translate(translation_table)
 
-        return cron_job.replace(" ", "") in cron_string.replace(" ", "")
+        cron_job_status = cron_job.replace(" ", "") in cron_string.replace(" ", "")
+        return cron_job_status
 
 
 if __name__ == "__main__":
+    logging.getLogger().setLevel(logging.INFO)
     user = getpass.getuser()
     cron_job = (
         "@reboot python3 ~/.steam/root/config/uioverrides/animation_randomizer.py"
