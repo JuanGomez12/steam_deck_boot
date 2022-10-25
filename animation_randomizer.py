@@ -92,6 +92,7 @@ class AnimationRandomizer:
                 list(self.animations_path.glob("*startup.webm"))
                 + list(self.animations_path.glob("*startup.WEBM"))
             )
+            logging.debug(f'Found {len(boot_animations)} animations')
             if self.startup_animation_path in boot_animations:
                 boot_animations.remove(self.startup_animation_path)
             if boot_animations:
@@ -121,6 +122,6 @@ class AnimationRandomizer:
 
 
 if __name__ == "__main__":
-    animation_randomizer = AnimationRandomizer(Path("movies"))
+    animation_randomizer = AnimationRandomizer(Path(__file__).parent / "movies")
     animation_used_path = animation_randomizer.randomize_boot_animation()
     print(f"New animation set: {animation_used_path}")

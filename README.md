@@ -1,10 +1,11 @@
-# steam_deck_boot
+# Steam Deck boot movie/animation randomizer
 | **Service** |                                                                                                            **Main**                                                                                                            |                                                                                                       **Dev**                                                                                                      |
 |:-----------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 |      CI     | [![Python test (pytest)](https://github.com/JuanGomez12/steam_deck_boot/actions/workflows/python-test.yml/badge.svg?branch=main&event=push)](https://github.com/JuanGomez12/steam_deck_boot/actions/workflows/python-test.yml) |[![Python test (pytest)](https://github.com/JuanGomez12/steam_deck_boot/actions/workflows/python-test.yml/badge.svg?branch=dev&event=push)](https://github.com/JuanGomez12/steam_deck_boot/actions/workflows/python-test.yml) |
 <!-- |             |                                                                                                                                                                                                                                |                                                                                                                                                                                                                    |
 |             |                                                                                                                                                                                                                                |                                                                                                                                                                                                                    | -->
 
+As the name implies, the idea is to create a randomizer for the boot animations.
 # Instructions
 
 ## Create folder for steam deck movies
