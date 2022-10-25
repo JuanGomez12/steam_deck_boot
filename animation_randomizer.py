@@ -122,6 +122,6 @@ class AnimationRandomizer:
 
 
 if __name__ == "__main__":
-    animation_randomizer = AnimationRandomizer(Path("movies"))
+    animation_randomizer = AnimationRandomizer(Path(__file__).parent / "movies")
     animation_used_path = animation_randomizer.randomize_boot_animation()
     print(f"New animation set: {animation_used_path}")
