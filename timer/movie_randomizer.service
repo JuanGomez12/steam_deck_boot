@@ -1,0 +1,4 @@
+[Unit]
+Description=Runs the movie randomizer script
+[Service]
+ExecStart=python3 ~/.steam/root/config/uioverrides/animation_randomizer.py

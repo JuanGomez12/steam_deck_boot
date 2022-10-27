@@ -1,0 +1,7 @@
+[Unit]
+Description=Movie randomizer job timer
+[Timer]
+OnBootSec=5m
+Unit=movie_randomizer.service #Linking our timer with the movie randomizer service
+[Install]
+WantedBy=multi-user.target
