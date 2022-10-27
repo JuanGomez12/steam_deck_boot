@@ -1,4 +1,4 @@
 [Unit]
 Description=Runs the movie randomizer script
 [Service]
-ExecStart=python3 ~/.steam/root/config/uioverrides/animation_randomizer.py
+ExecStart=python3 /home/deck/.steam/root/config/uioverrides/animation_randomizer.py
