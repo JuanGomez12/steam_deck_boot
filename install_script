@@ -18,7 +18,7 @@ python3 ~/.steam/root/config/uioverrides/animation_randomizer.py
 # Copy the timer and service
 sudo cp /tmp/steam_deck_boot/timer/movie_randomizer.* /etc/systemd/system/
 
-#enable the timer
+# Enable the timer
 systemctl enable movie_randomizer.timer
 
 # We can check to see if it got correctly setup by running systemctl status movie_randomizer.service
