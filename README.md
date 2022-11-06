@@ -7,7 +7,12 @@
 
 As the name implies, the idea is to create a randomizer for the boot animations.
 # Instructions
-Back up anything important in the ~/.steam/root/config/uioverrides/movies/ path if you have already set up movies there, just in case something doesn't work correctly!
+- Back up anything important in the ~/.steam/root/config/uioverrides/movies/ path if you have already set up movies there, just in case something doesn't work correctly!
+- The scripts assume that you are running the default user for the steam deck, as it comes in the box.
+- When I tried copying the timer and service files, I needed to have elevated permissions. This means that I needed the root password, which wasn't setup and thus I couldn't continue until I had one set up.
+    - *TLDR:* make sure that you have set up a password for your steam deck.
+    - This can be done by opening a terminal and running passwd, or in Desktop mode going to settings > users and setting your password there.
+
 ## Manual Install
 ### Create folder for steam deck movies
 Open a terminal and run:
@@ -22,22 +27,11 @@ You can either copy the animation_randomizer.py script to the ~/.steam/root/conf
 curl https://raw.githubusercontent.com/JuanGomez12/steam_deck_boot/main/animation_randomizer.py -o ~/.steam/root/config/uioverrides/animation_randomizer.py
 ```
 
-### Create cron job
-Cron is a scheduling tool found in many different linux-based OSes, like Arch! We can use it so that every time the steam deck turns on, it automatically runs our animation_randomizer script and thus changes our startup movie.
-
-To do this, we need then to open crontab using the terminal:
+### Copy the timers
+The timer and its service need to be copied into the /etc/systemd/system folder, so we need to do:
 ```
-crontab -e
+sudo cp /tmp/steam_deck_boot/timer/movie_randomizer.* /etc/systemd/system/
 ```
-When you run this line, it will ask you to select a text processor to open cron. I'll assume we open it with nano, as it's a bit more newbie friendly.
-Add the following line to the end of the wall of text that just showed up:
-```
-@reboot  python3 ~/.steam/root/config/uioverrides/animation_randomizer.py
-```
-It should look something like this:
-![example crontab output opened in nano](images/crontab_nano.png)
-
-Afterwards, press ctrl+x, press y to overwrite, and then press enter to save.
 
 ## Automatic installation
 You should never run bash scripts from the internet blindly! However, I'll still offer an auto install that can be used by opening a terminal and typing:
@@ -55,14 +49,17 @@ rm -rf /tmp/steam_deck_boot
 # Clone the repo
 git clone https://github.com/JuanGomez12/steam_deck_boot /tmp/steam_deck_boot
 
-# Run the cron job setup
-python3 /tmp/steam_deck_boot/cron_setup.py
-
 # Copy the randomizer to the uioverrides directory
 cp /tmp/steam_deck_boot/animation_randomizer.py ~/.steam/root/config/uioverrides/
 
 # Test to see if the script runs correctly
 python3 ~/.steam/root/config/uioverrides/animation_randomizer.py
+
+# Copy the timer and service
+sudo cp /tmp/steam_deck_boot/timer/movie_randomizer.* /etc/systemd/system/
+
+# Enable the timer
+systemctl enable movie_randomizer.timer
 ```
 This will then setup everything so that the movie randomizer runs every time you turn on/reboot your steam deck.
 
