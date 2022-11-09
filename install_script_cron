@@ -9,16 +9,11 @@ rm -rf /tmp/steam_deck_boot
 # Clone the repo
 git clone https://github.com/JuanGomez12/steam_deck_boot /tmp/steam_deck_boot
 
+# Run the cron job setup
+python3 /tmp/steam_deck_boot/cron_setup.py
+
 # Copy the randomizer to the uioverrides directory
 cp /tmp/steam_deck_boot/animation_randomizer.py ~/.steam/root/config/uioverrides/
 
 # Test to see if the script runs correctly
 python3 ~/.steam/root/config/uioverrides/animation_randomizer.py
-
-# Copy the timer and service
-sudo cp /tmp/steam_deck_boot/timer/movie_randomizer.* /etc/systemd/system/
-
-# Enable the timer
-systemctl enable --now movie_randomizer.timer
-
-# We can check to see if it got correctly setup by running systemctl status movie_randomizer.service

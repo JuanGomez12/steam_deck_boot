@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Disable the timer
+systemctl disable --now movie_randomizer.timer
+
+# Remove the timer and service
+sudo rm -f /etc/systemd/system/movie_randomizer.timer
+sudo rm -f /etc/systemd/system/movie_randomizer.service
+
+# Remove the randomizer python script
+rm -f ~/.steam/root/config/uioverrides/animation_randomizer.py
