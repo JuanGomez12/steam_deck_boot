@@ -1,24 +1,32 @@
 #!/bin/bash
 
 # Create Steam movies/animations folder
+echo "Creating movies directory if it doesn't exist"
 mkdir -p ~/.steam/root/config/uioverrides/movies/
 
 # Delete steam_deck_boot folder if it exists in the tmp directory
+echo "Deleting steam_deck_boot temporary directory if it exists"
 rm -rf /tmp/steam_deck_boot
 
 # Clone the repo
+echo "Cloning the entire repo"
 git clone https://github.com/JuanGomez12/steam_deck_boot /tmp/steam_deck_boot
 
 # Copy the randomizer to the uioverrides directory
+echo "Copying the randomizer script to ~/.steam/root/config/uioverrides/"
 cp /tmp/steam_deck_boot/animation_randomizer.py ~/.steam/root/config/uioverrides/
 
 # Test to see if the script runs correctly
+echo "Testing the randomizer script"
 python3 ~/.steam/root/config/uioverrides/animation_randomizer.py
 
 # Copy the timer and service
+echo "Copying the timer and service files, need sudo access"
 sudo cp /tmp/steam_deck_boot/timer/movie_randomizer.* /etc/systemd/system/
 
 # Enable the timer
+echo "Enabling the timer"
 systemctl enable --now movie_randomizer.timer
 
+echo "Done, the timer service can be checked to see if it was installed correctly by using 'systemctl status movie_randomizer.service'"
 # We can check to see if it got correctly setup by running systemctl status movie_randomizer.service
