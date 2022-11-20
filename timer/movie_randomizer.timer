@@ -1,6 +1,6 @@
 [Unit]
 Description=Movie randomizer job timer
-Requires=movie_randomizer.service
+#Requires=movie_randomizer.service
 [Timer]
 OnBootSec=3m
 Unit=movie_randomizer.service #Linking our timer with the movie randomizer service
